@@ -16,6 +16,8 @@ if (!user) location.href = "/login.html";
 <h1>🤖 RoboMonitor</h1>
 <p id="role"></p>
 
+<div id="adminControls"></div>
+<button onclick="logout()">Выйти</button>
 <div>
   <button onclick="filter('all')">Все</button>
   <button onclick="filter('active')">Активные</button>
@@ -33,8 +35,10 @@ if (!user) location.href = "/login.html";
 </table>
 
 <h2>📊 Аналитика</h2>
-<canvas id="batteryChart"></canvas>
-<canvas id="workChart"></canvas>
+<div style="width: 1000px; height: 800px; margin: 0 auto;">
+  <canvas id="batteryChart"></canvas>
+</div>
+
 
 <script src="script.js"></script>
 </body>

@@ -3,10 +3,11 @@ const socket = io();
 let robots = [];
 let filterStatus = "all";
 let historyData = {};
-let batteryChart, workChart;
+let batteryChart;
 
 const userData = JSON.parse(localStorage.getItem("user"));
 document.getElementById("role").innerText = "Роль: " + userData.role;
+renderAdminControls();
 
 socket.on("robots", (data) => {
   robots = data;
@@ -41,42 +42,84 @@ function render() {
 function updateHistory() {
   robots.forEach(r => {
     if (!historyData[r.id]) {
-      historyData[r.id] = { battery: [], work: [] };
+      historyData[r.id] = { battery: [],  };
     }
 
     historyData[r.id].battery.push(r.battery);
-    historyData[r.id].work.push(r.status === "active" ? 1 : 0);
+    
 
     if (historyData[r.id].battery.length > 10) {
       historyData[r.id].battery.shift();
-      historyData[r.id].work.shift();
+      
     }
   });
 }
 
 function updateCharts() {
-  const r = robots[0];
-  const h = historyData[r.id];
+  const labels = Array.from({ length: 10 }, (_, i) => i);
+
+  const datasets = robots.map(r => {
+    const h = historyData[r.id];
+
+    return {
+      label: r.name,
+      data: h ? h.battery : [],
+      fill: false,
+      tension: 0.3
+    };
+  });
 
   if (!batteryChart) {
     batteryChart = new Chart(document.getElementById("batteryChart"), {
       type: "line",
-      data: { labels: h.battery.map((_, i)=>i), datasets: [{ label: "Battery", data: h.battery }] }
+      data: {
+        labels: labels,
+        datasets: datasets
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            display: true
+          }
+        }
+      }
     });
   } else {
-    batteryChart.data.labels = h.battery.map((_, i)=>i);
-    batteryChart.data.datasets[0].data = h.battery;
+    batteryChart.data.datasets = datasets;
     batteryChart.update();
   }
+}
 
-  if (!workChart) {
-    workChart = new Chart(document.getElementById("workChart"), {
-      type: "line",
-      data: { labels: h.work.map((_, i)=>i), datasets: [{ label: "Work", data: h.work }] }
-    });
+ 
+
+// 🔁 смена роли
+function logout() {
+  localStorage.removeItem("user"); // удаляем пользователя
+  window.location.href = "/login.html"; // возвращаем на вход
+}
+
+// 🎛 админ-панель
+function renderAdminControls() {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const div = document.getElementById("adminControls");
+
+  if (user.role === "admin") {
+    div.innerHTML = `
+      <button onclick="stopSystem()">🛑 Аварийная остановка</button>
+      <button onclick="startSystem()">▶️ Запуск</button>
+    `;
   } else {
-    workChart.data.labels = h.work.map((_, i)=>i);
-    workChart.data.datasets[0].data = h.work;
-    workChart.update();
+    div.innerHTML = "";
   }
+}
+
+// 🛑 стоп
+async function stopSystem() {
+  await fetch("/api/stop", { method: "POST" });
+}
+
+// ▶️ запуск
+async function startSystem() {
+  await fetch("/api/start", { method: "POST" });
 }

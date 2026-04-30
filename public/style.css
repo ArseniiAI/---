@@ -1,6 +1,6 @@
 body {
-  background: #a1d2ff;
-  color: rgb(0, 0, 0);
+  background: #023566;
+  color: rgb(255, 255, 255);
   text-align: center;
   font-family: Arial;
 }
@@ -12,10 +12,13 @@ table {
 }
 
 td, th {
-  border: 1px solid #333;
+  border: 1px solid #000000;
   padding: 10px;
 }
 
 .active { color: lime; }
 .idle { color: orange; }
 .error { color: red; }
+canvas {
+  max-width: 100%;
+}

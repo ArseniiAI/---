@@ -23,6 +23,8 @@ let robots = [
   { id: 3, name: "Robot C3", status: "error", battery: 40 }
 ];
 
+let systemStopped = false;
+
 app.post("/api/login", (req, res) => {
   const { username, password } = req.body;
   const user = users.find(u => u.username === username && u.password === password);
@@ -30,11 +32,26 @@ app.post("/api/login", (req, res) => {
   res.json({ username: user.username, role: user.role });
 });
 
-app.get("/api/robots", (req, res) => {
-  res.json(robots);
+app.post("/api/stop", (req, res) => {
+  systemStopped = true;
+
+  robots = robots.map(r => ({
+    ...r,
+    status: "stopped"
+  }));
+
+  io.emit("robots", robots);
+
+  res.json({ message: "Система остановлена" });
+});
+
+app.post("/api/start", (req, res) => {
+  systemStopped = false;
+  res.json({ message: "Система запущена" });
 });
 
 setInterval(() => {
+  if (systemStopped) return;
   robots = robots.map(r => {
     const statuses = ["active", "idle", "error"];
     return {
