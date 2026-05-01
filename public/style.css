@@ -1,6 +1,7 @@
-body {
+/*body {
+ 
+  color: rgba(255, 255, 255, 0);
   background: #023566;
-  color: rgb(255, 255, 255);
   text-align: center;
   font-family: Arial;
 }
@@ -21,4 +22,247 @@ td, th {
 .error { color: red; }
 canvas {
   max-width: 100%;
+}*/
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+:root {
+  --bg-primary: #023566;
+  --bg-secondary: #032b4d;
+  --bg-card: rgba(255, 255, 255, 0.05);
+  --text-primary: #02dfdf;
+  --text-muted: #b0c4de;
+  --accent: #00e5ff;
+  --accent-glow: 0 0 12px rgba(0, 229, 255, 0.5);
+  --btn-bg: rgba(0, 229, 255, 0.15);
+  --btn-border: #00e5ff;
+  --border-light: rgba(255, 255, 255, 0.1);
+  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --radius: 12px;
+  --transition: 0.3s ease;
 }
+
+	{
+  Margin: 0;
+  Padding: 0;
+  Box-sizing: border-box;
+}
+
+Body {
+  Background: linear-gradient(135deg, #023566 0%, #011a33 100%);
+  Color: var(--text-primary);
+  Text-align: center;
+  Font-family: 'Share Tech Mono', monospace;
+  Min-height: 100vh;
+  Padding: 2rem 1rem;
+  Position: relative;
+  Overflow-x: hidden;
+}
+Body::before {
+  Content: '';
+  Position: fixed;
+  Top: 0; left: 0; right: 0; bottom: 0;
+  Background-image: 
+Linear-gradient(var(--border-light) 1px, transparent 1px),
+Linear-gradient(90deg, var(--border-light) 1px, transparent 1px);
+  Background-size: 60px 60px;
+  Pointer-events: none;
+  z-index: 0;
+  opacity: 0.15;
+}
+Body > *:not(script) {
+  Position: relative;
+  z-index: 1;
+}
+
+H1 {
+  Font-size: 3rem;
+  Letter-spacing: 4px;
+  Text-transform: uppercase;
+  Background: linear-gradient(45deg, #00e5ff, #00bcd4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  Background-clip: text;
+  Filter: drop-shadow(0 0 15px rgba(0, 229, 255, 0.6));
+  Margin-bottom: 1rem;
+}
+
+#role {
+  Font-size: 1.1rem;
+  Color: var(--accent);
+  Background: var(--btn-bg);
+  Display: inline-block;
+  Padding: 0.3rem 1rem;
+  Border-radius: 20px;
+  Border: 1px solid var(--btn-border);
+  Margin-bottom: 1.5rem;
+}
+
+Button {
+  Background: var(--btn-bg);
+  Border: 1px solid var(--btn-border);
+  Color: var(--accent);
+  Font-family: inherit;
+  Font-size: 0.9rem;
+  Padding: 0.7rem 1.5rem;
+  Margin: 0.25rem;
+  Border-radius: 30px;
+  Cursor: pointer;
+  Transition: var(--transition);
+  Text-transform: uppercase;
+  Letter-spacing: 1px;
+  Backdrop-filter: blur(5px);
+  Position: relative;
+  Overflow: hidden;
+}
+
+Button:hover {
+  Background: var(--accent);
+  Color: #011a33;
+  Box-shadow: var(--accent-glow);
+  Transform: translateY(-2px);
+}
+
+Button:active {
+  Transform: scale(0.97);
+}
+Button[onclick=»logout()»] {
+  Background: rgba(255, 70, 70, 0.15);
+  Border-color: #ff4d4d;
+  Color: #ff4d4d;
+}
+Button[onclick=»logout()»]:hover {
+  Background: #ff4d4d;
+  Color: white;
+  Box-shadow: 0 0 12px rgba(255, 77, 77, 0.6);
+}
+#adminControls button:first-child {
+  Background: rgba(255, 0, 0, 0.2);
+  Border-color: #ff3333;
+  Color: #ff6666;
+}
+#adminControls button:first-child:hover {
+  Background: #ff3333;
+  Color: white;
+}
+#adminControls button:last-child {
+  Border-color: #00c853;
+  Color: #69f0ae;
+  Background: rgba(0, 200, 83, 0.15);
+}
+#adminControls button:last-child:hover {
+  Background: #00c853;
+  Color: #011a33;
+}
+
+Table {
+  Margin: 2rem auto;
+  Width: 80%;
+  Max-width: 900px;
+  Border-collapse: separate;
+  Border-spacing: 0;
+  Background: var(--bg-card);
+  Backdrop-filter: blur(12px);
+  Border-radius: var(--radius);
+  Overflow: hidden;
+  Box-shadow: var(--shadow-card);
+  Border: 1px solid var(--border-light);
+}
+
+Th {
+  Background: rgba(0, 229, 255, 0.1);
+  Color: var(--accent);
+  Font-weight: normal;
+  Text-transform: uppercase;
+  Letter-spacing: 2px;
+  Font-size: 0.9rem;
+  Padding: 1rem;
+  Border-bottom: 2px solid var(--accent);
+}
+
+Td {
+  Padding: 1rem;
+  Border-bottom: 1px solid var(--border-light);
+  Transition: background 0.2s;
+}
+
+Tr:last-child td {
+  Border-bottom: none;
+}
+
+Tr:hover td {
+  Background: rgba(255, 255, 255, 0.05);
+}
+.active {
+  Color: #00e676;
+  Background: rgba(0, 230, 118, 0.1);
+  Padding: 0.25rem 0.8rem;
+  Border-radius: 20px;
+  Display: inline-block;
+  Border: 1px solid #00e676;
+  Font-weight: bold;
+  Text-shadow: 0 0 8px rgba(0, 230, 118, 0.7);
+}
+
+.idle {
+  Color: #ffab40;
+  Background: rgba(255, 171, 64, 0.1);
+  Padding: 0.25rem 0.8rem;
+  Border-radius: 20px;
+  Display: inline-block;
+  Border: 1px solid #ffab40;
+  Font-weight: bold;
+}
+
+.error {
+  Color: #ff5252;
+  Background: rgba(255, 82, 82, 0.1);
+  Padding: 0.25rem 0.8rem;
+  Border-radius: 20px;
+  Display: inline-block;
+  Border: 1px solid #ff5252;
+  Font-weight: bold;
+  Animation: pulse-error 1.5s infinite;
+}
+
+@keyframes pulse-error {
+  0% { box-shadow: 0 0 0 0 rgba(255, 82, 82, 0.6); }
+  70% { box-shadow: 0 0 0 10px rgba(255, 82, 82, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 82, 82, 0); }
+}
+H2 {
+  Margin: 2rem 0 1rem;
+  Color: var(--text-muted);
+  Font-size: 1.8rem;
+  Letter-spacing: 3px;
+  Text-transform: uppercase;
+  Border-bottom: 1px solid var(--border-light);
+  Display: inline-block;
+  Padding-bottom: 0.5rem;
+}
+Div[style*=»width: 1000px»] {
+  Background: var(--bg-card);
+  Backdrop-filter: blur(12px);
+  Border-radius: var(--radius);
+  Padding: 1rem;
+  Box-shadow: var(--shadow-card);
+  Border: 1px solid var(--border-light);
+  Max-width: 95vw;
+}
+
+Canvas {
+  Max-width: 100% !important;
+  Height: auto !important;
+}
+@media (max-width: 768px) {
+  H1 {
+Font-size: 2rem;
+  }
+  Table {
+Width: 100%;
+  }
+  Th, td {
+Padding: 0.8rem 0.5rem;
+Font-size: 0.8rem;
+  }
+}
+
