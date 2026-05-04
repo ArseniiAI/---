@@ -1,28 +1,3 @@
-/*body {
- 
-  color: rgba(255, 255, 255, 0);
-  background: #023566;
-  text-align: center;
-  font-family: Arial;
-}
-
-table {
-  margin: auto;
-  width: 70%;
-  border-collapse: collapse;
-}
-
-td, th {
-  border: 1px solid #000000;
-  padding: 10px;
-}
-
-.active { color: lime; }
-.idle { color: orange; }
-.error { color: red; }
-canvas {
-  max-width: 100%;
-}*/
 @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
 
 :root {
